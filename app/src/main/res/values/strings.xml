@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ImageLoginTest</string>
+    <string name="ranPic">A random picture</string>
+</resources>
