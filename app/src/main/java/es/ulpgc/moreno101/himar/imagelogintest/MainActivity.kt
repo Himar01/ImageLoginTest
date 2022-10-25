@@ -14,16 +14,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val intent = Intent(applicationContext, SharedApp::class.java)
-        startActivity(intent)
         var currentTime: Date = Calendar.getInstance().time;
         var prefs = Prefs(applicationContext)
         binding.lastLogin.text = prefs.name
-        SharedApp.prefs.name=currentTime.toString()
-
-        binding.lastLogin.text = SharedApp.prefs.name
-        SharedApp.prefs.name = currentTime.toString()
-
+        prefs.name= currentTime.toString()
     }
 }
 
