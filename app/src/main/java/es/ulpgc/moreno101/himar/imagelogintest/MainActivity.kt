@@ -16,6 +16,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
+import kotlin.random.Random.Default.nextInt
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
     private lateinit var binding: ActivityMainBinding
@@ -30,8 +31,17 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
         binding.lastLogin.text = prefs.name
         binding.searchView.setOnQueryTextListener(this)
         prefs.name= currentTime.toString()
+        binding.button.setOnClickListener { v->
+            changeImage()
+        }
 
     }
+
+    private fun changeImage() {
+        initDogValue = nextInt(0,dogImages.size+1)
+        Picasso.get().load(dogImages[initDogValue]).into(binding.dogImage)
+    }
+
     override fun onQueryTextSubmit(query: String?): Boolean {
         if(!query.isNullOrEmpty()){
             searchByName(query.lowercase())
@@ -50,8 +60,8 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
     }
     private fun searchByName(query: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val call: Response<DogsResponse> = getRetrofit().create(APIService::class.java).getDogsByBreeds("$query/images")
-            val puppies:DogsResponse? = call.body()
+            val call = getRetrofit().create(APIService::class.java).getDogsByBreeds("$query/images")
+            val puppies = call.body()
             runOnUiThread(){
                 if(call.isSuccessful){
                     val images = puppies?.images ?: emptyList()
@@ -60,10 +70,9 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
                     Picasso.get().load(dogImages[initDogValue]).into(binding.dogImage)
 
                 }else{
-                    //show error
+                    showError()
                 }
             }
-
         }
 
 

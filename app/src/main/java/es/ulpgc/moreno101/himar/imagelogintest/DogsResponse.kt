@@ -7,7 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Url
 
-data class DogsResponse (@SerializedName("status") var status:String,
-@SerializedName("message")var images: List<String>){
+data class DogsResponse (
+    @SerializedName("status") var status:String,
+    @SerializedName("message") var images: List<String>){
 
 }
