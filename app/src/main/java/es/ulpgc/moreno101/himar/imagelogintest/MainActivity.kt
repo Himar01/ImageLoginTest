@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
     }
 
     private fun changeImage() {
-        initDogValue = nextInt(0,dogImages.size+1)
+        initDogValue = nextInt(0,dogImages.size)
         Picasso.get().load(dogImages[initDogValue]).into(binding.dogImage)
     }
 
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
                     val images = puppies?.images ?: emptyList()
                     dogImages.clear()
                     dogImages.addAll(images)
-                    Picasso.get().load(dogImages[initDogValue]).into(binding.dogImage)
+                    changeImage()
 
                 }else{
                     showError()
