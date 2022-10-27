@@ -1,7 +1,6 @@
 package es.ulpgc.moreno101.himar.imagelogintest
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
@@ -12,7 +11,6 @@ import es.ulpgc.moreno101.himar.imagelogintest.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
@@ -34,11 +32,10 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
         binding.button.setOnClickListener { v->
             changeImage()
         }
-
     }
 
     private fun changeImage() {
-        initDogValue = nextInt(0,dogImages.size)
+        initDogValue = nextInt(0,dogImages.size+1)
         Picasso.get().load(dogImages[initDogValue]).into(binding.dogImage)
     }
 
